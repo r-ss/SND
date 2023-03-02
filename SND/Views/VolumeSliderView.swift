@@ -31,6 +31,13 @@ struct VolumeSliderView: View {
                 value = Float(percent)
                 sndPlayer.setVolume(value)
             }
+//            .onAppear(){
+//                
+//                // Subscribing to track start event to immedeately set progress bar to zero
+//                NotificationCenter.simple(name: .playbackStarted){
+//                    value = 0
+//                }
+//            }
         }
     }
 }

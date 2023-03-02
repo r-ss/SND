@@ -12,6 +12,7 @@ I am accepting pull requests!
 - Track duration column in playlist
 - Saving plalist state between app launches
 - Change volume by dragging slider, not just clicking
+- Add some tests
 
 
 

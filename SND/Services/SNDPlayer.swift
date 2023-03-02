@@ -7,17 +7,15 @@
 
 import AVFoundation
 
-// TODO: add delegate methods somewhere - https://developer.apple.com/documentation/avfaudio/avaudioplayerdelegate
-
 class SNDPlayer: ObservableObject {
     static let shared = SNDPlayer()
     
     var audioPlayer: AVAudioPlayer?
     
-    
     var currentTrack: Track?
     var ctPosition: Double?
     var ctDuration: Double?
+    
     var progress: Float {
         if let p = ctPosition, let d = ctDuration {
             return Float(p/d)
@@ -25,17 +23,16 @@ class SNDPlayer: ObservableObject {
         return 0.0
     }
     
-//    var isAudioPlaying: Bool {
-//        if let p = audioPlayer {
-//            if p.isPlaying{
-//                return true
-//            }
-//        }
-//        return false
-//    }
+    //    var isAudioPlaying: Bool {
+    //        if let p = audioPlayer {
+    //            if p.isPlaying{
+    //                return true
+    //            }
+    //        }
+    //        return false
+    //    }
     
     func playFromPosition(percent: Double) {
-        //print("playFromPosition \(percent)%")
         if let p = audioPlayer {
             let seconds: TimeInterval = percent * p.duration
             p.currentTime = seconds
@@ -44,30 +41,10 @@ class SNDPlayer: ObservableObject {
         }
     }
     
-//    func loadAndPlay(track: Track){
-//        do {
-//            audioPlayer = try AVAudioPlayer(contentsOf: track.path, fileTypeHint: AVFileType.mp3.rawValue) //<- No `let`
-//
-//            if let audioPlayerSafe = audioPlayer {
-//                ctPosition = 0.0
-//                ctDuration = audioPlayerSafe.duration
-//
-//                audioPlayerSafe.play()
-//                currentTrack = track
-//                Notification.fire(name: .playbackStarted)
-//                //print("sound is playing")
-//            }
-//        } catch let error {
-//            print("Sound Play Error -> \(error)")
-//        }
-//    }
-    
     func updateProgress() {
-        
         if let _ = audioPlayer {
             self.ctPosition = audioPlayer?.currentTime
             self.ctDuration = audioPlayer?.duration
-            //print(self.progress)
         }
     }
     
@@ -78,18 +55,18 @@ class SNDPlayer: ObservableObject {
     }
     
     
-//    func play(url: URL) {
-//        do {
-//            audioPlayer = try AVAudioPlayer(contentsOf: url) //<- No `let`
-//            audioPlayer?.prepareToPlay()
-//            audioPlayer?.play()
-//            Notification.fire(name: .playbackStarted)
-//            //print("sound is playing")
-//        } catch let error {
-//            print("Sound Play Error -> \(error)")
-//        }
-//    }
-//
+    //    func play(url: URL) {
+    //        do {
+    //            audioPlayer = try AVAudioPlayer(contentsOf: url) //<- No `let`
+    //            audioPlayer?.prepareToPlay()
+    //            audioPlayer?.play()
+    //            Notification.fire(name: .playbackStarted)
+    //            //print("sound is playing")
+    //        } catch let error {
+    //            print("Sound Play Error -> \(error)")
+    //        }
+    //    }
+    //
     func play(track: Track) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: track.path) //<- No `let`
@@ -104,16 +81,16 @@ class SNDPlayer: ObservableObject {
         }
     }
     
-//    func stop(){
-//        audioPlayer?.stop()
-//        audioPlayer = nil
-//        Notification.fire(name: .playbackStopped)
-//    }
+    //    func stop(){
+    //        audioPlayer?.stop()
+    //        audioPlayer = nil
+    //        Notification.fire(name: .playbackStopped)
+    //    }
     
     func playPauseToggle(){
         if let p = audioPlayer {
             if p.isPlaying {
-//                p.stop()
+                //                p.stop()
                 p.pause()
                 Notification.fire(name: .playbackStopped)
             } else {

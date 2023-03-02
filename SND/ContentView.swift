@@ -10,26 +10,8 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     
-    //    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect() // to update progressbar
-    
-    private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
-    
     @StateObject var sndPlaylist = SNDPlaylist()
     var sndPlayer = SNDPlayer.shared
-    
-    @State var progressValue: Float = 0.0
-    @State var volumeValue: Float = 1.0
-    
-    func showOpenPanel() -> [URL]? {
-        let openPanel = NSOpenPanel()
-        openPanel.allowedContentTypes = [UTType(filenameExtension: "mp3")!, UTType(filenameExtension: "flac")!]
-        openPanel.allowsMultipleSelection = true
-        openPanel.canChooseDirectories = true
-        openPanel.canChooseFiles = true
-        let response = openPanel.runModal()
-        return response == .OK ? openPanel.urls : nil
-    }
-    
     
     var body: some View {
         VStack {
@@ -49,36 +31,17 @@ struct ContentView: View {
                 
             }.padding(10)
             
-//            Button("Open") {
-//                if let urls = showOpenPanel() {
-//                    sndPlaylist.addFromPaths(urls: urls)
-//                }
-//            }
-                
             PlaylistView(sndPlaylist: sndPlaylist)
                 .frame(minWidth: 500, minHeight: 200, alignment: .topLeading)
                 .padding(0)
             
-            
         }
         .environmentObject(sndPlaylist)
-//        .environmentObject(sndPlayer)
         .onDrop(of: [.fileURL], isTargeted: nil) { itemProviders in
             for provider in itemProviders {
                 let _ = provider.loadObject(ofClass: URL.self) { object, error in
                     if let url = object {
-                        
-                        print("ss")
-                            sndPlaylist.addFromPaths(urls: [url])
-                        
-//                        print("url: \(url.pathExtension.lowercased())")
-//                        if ["flac", "mp3"].contains(url.pathExtension.lowercased()) {
-//                            DispatchQueue.main.async {url
-//                                sndPlaylist.addTrack(track: Track(path: url, filename: String(describing: url.lastPathComponent)))
-//                            }
-//                        }
-                        
-                        
+                        sndPlaylist.addFromPaths(urls: [url])
                     }
                 }
             }
@@ -89,14 +52,38 @@ struct ContentView: View {
             progressValue = sndPlayer.progress
         }
         .onAppear() {
+            
+            // Subscribing to File > Add to playlist... menu event
             NotificationCenter.simple(name: .fileOpenDialogRequested){
                 if let urls = showOpenPanel() {
                     sndPlaylist.addFromPaths(urls: urls)
                 }
             }
+            
+            // Subscribing to track start event to immedeately set progress bar to zero
+            NotificationCenter.simple(name: .playbackStarted){
+                progressValue = 0
+            }
         }
         
     }
+    
+    // MARK: Private
+    private var timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    @State private var progressValue: Float = 0.0
+    @State private var volumeValue: Float = 1.0
+    
+    private func showOpenPanel() -> [URL]? {
+        let openPanel = NSOpenPanel()
+        openPanel.allowedContentTypes = [UTType(filenameExtension: "mp3")!, UTType(filenameExtension: "flac")!]
+        openPanel.allowsMultipleSelection = true
+        openPanel.canChooseDirectories = true
+        openPanel.canChooseFiles = true
+        let response = openPanel.runModal()
+        return response == .OK ? openPanel.urls : nil
+    }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -104,29 +91,3 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-
-func describeDroppedURL(_ url: URL) -> String {
-    do {
-        var messageRows: [String] = []
-        
-        if try url.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == false {
-            messageRows.append("Dropped file named `\(url.lastPathComponent)`")
-            
-            messageRows.append("which starts with `\(try String(contentsOf: url).components(separatedBy: "\n")[0]))`")
-        } else {
-            messageRows.append("Dropped folder named `\(url.lastPathComponent)`")
-            
-            for childUrl in try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: []) {
-                messageRows.append("  Containing file named `\(childUrl.lastPathComponent)`")
-                
-                messageRows.append("    which starts with `\((try String(contentsOf: childUrl)).components(separatedBy: "\n")[0])`")
-            }
-        }
-        
-        return messageRows.joined(separator: "\n")
-    } catch {
-        return "Error: \(error)"
-    }
-}
-
-

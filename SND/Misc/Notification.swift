@@ -25,6 +25,8 @@ extension Notification {
         NotificationCenter.default.post(name: name, object: nil, userInfo: ["payload":payload ?? "no-data"])
     }
 }
+
+// Method to subscribing for notifications
 extension NotificationCenter {
     static func listen(name: Notification.Name, completion: @escaping ((Any) -> Void)) {
         
