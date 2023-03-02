@@ -42,8 +42,8 @@ struct PlayPauseButtonView: View {
     }
 }
 
-//struct PlayPauseButtonView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PlayPauseButtonView(title: "Press me", icon_name: "trash", onClick: { print("click")} )
-//    }
-//}
+struct PlayPauseButtonView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlayPauseButtonView(onClick: {})
+    }
+}
