@@ -69,10 +69,18 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
     
     func addFromPaths(urls: [URL]) {
+
+//        var unsorted: [URL] = urls
+//        var sorted = unsorted.sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
+//
+//        for url in sorted {
+//            print(url.lastPathComponent)
+//        }
+        
         for url in urls {
             if url.isDirectory {
                 print("It's a directory, trying to load file")
-                
+
                 let fileManager = FileManager()
                 do {
                     let itemsInDir = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
@@ -95,6 +103,10 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
             playerManager.play(track: tracks[idx])
             playerManager.audioPlayer!.delegate = self
         }
+}
+    
+    func removeTracksFromPlaylist(ids: Set<Track.ID>) -> Void {
+        self.tracks = self.tracks.filter { !ids.contains($0.id) }
     }
 }
 
