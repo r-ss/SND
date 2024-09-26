@@ -19,9 +19,7 @@ struct Track: Hashable, Identifiable {
     var filename: String
     
     var stateAsString: String {
-        
         self.state ? ">" : ""
-//        return String(describing: self.state)
     }
     
     

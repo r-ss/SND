@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+//import CoreAudio
 
 class SNDPlayer: ObservableObject {
     static let shared = SNDPlayer()
@@ -15,6 +16,8 @@ class SNDPlayer: ObservableObject {
     var currentTrack: Track?
     var ctPosition: Double?
     var ctDuration: Double?
+    
+
     
     var progress: Float {
         if let p = ctPosition, let d = ctDuration {
@@ -70,6 +73,7 @@ class SNDPlayer: ObservableObject {
     func play(track: Track) {
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: track.path) //<- No `let`
+            
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
             
@@ -99,4 +103,10 @@ class SNDPlayer: ObservableObject {
             }
         }
     }
+    
+    func listAirplayDevices() {
+        print("list ap d")
+        
+    }
+    
 }

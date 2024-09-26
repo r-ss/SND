@@ -23,7 +23,7 @@ struct PlaylistView: View {
         if sndPlaylist.tracks.count == 0 {
             ZStack {
                 playlistTable.disabled(true).opacity(0.5)
-                Text("Add music by drag files here or using File menu")
+                Text("Add music by drag files here or using File menu :)")
             }
         } else {
             
@@ -32,12 +32,12 @@ struct PlaylistView: View {
                 .onAppear(){
                     
                     
-                    // TODO: Another way to hanlde keyboard evengs because this one playing unnecessary chime sound
+                    // TODO: Another way to handle keyboard evengs because this one playing unnecessary chime sound
                     NSEvent.addLocalMonitorForEvents(matching: [.keyDown]) { nsevent in
                         
                         switch nsevent.keyCode {
                         case 51:
-                            print("Backspace")
+                            //print("Backspace")
                             sndPlaylist.removeTracksFromPlaylist(ids: selection)
                         default:
                             print(nsevent.keyCode)

@@ -8,6 +8,8 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
+import AVFoundation
+
 struct ContentView: View {
     
     @StateObject var sndPlaylist = SNDPlaylist()
@@ -29,6 +31,14 @@ struct ContentView: View {
                 VolumeSliderView(value: $volumeValue).frame(
                     maxWidth: 100, maxHeight: 12)
                 
+                Image(systemName: "airplayaudio").resizable().frame(width: 16, height: 16)
+                    .padding([.leading, .trailing], 5)
+                    .onTapGesture{
+                        print("list devices")
+                        sndPlayer.listAirplayDevices()
+                        
+                        
+                    }
             }.padding(10)
             
             PlaylistView(sndPlaylist: sndPlaylist)
@@ -37,7 +47,8 @@ struct ContentView: View {
             
         }
         .environmentObject(sndPlaylist)
-        .onDrop(of: [.fileURL], isTargeted: nil) { itemProviders in
+        .onDrop(of: [.fileURL], isTargeted: nil) {
+            itemProviders in
             for provider in itemProviders {
                 let _ = provider.loadObject(ofClass: URL.self) { object, error in
                     if let url = object {

@@ -69,21 +69,18 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
     }
     
     func addFromPaths(urls: [URL]) {
-
-//        var unsorted: [URL] = urls
-//        var sorted = unsorted.sorted(by: { $0.lastPathComponent < $1.lastPathComponent })
-//
-//        for url in sorted {
-//            print(url.lastPathComponent)
-//        }
+//                print("addFromPaths", urls)
         
         for url in urls {
             if url.isDirectory {
                 print("It's a directory, trying to load file")
-
+                
                 let fileManager = FileManager()
                 do {
-                    let itemsInDir = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+                    var itemsInDir = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+                    // sorting items by file name
+                    itemsInDir = itemsInDir.sorted(by: {$0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending})
+                    
                     for item in itemsInDir {
                         if allowed_extensions.contains(item.pathExtension.lowercased()) {
                             addTrack(url: item)
@@ -95,6 +92,7 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
             } else {
                 addTrack(url: url)
             }
+            
         }
     }
     
@@ -103,11 +101,13 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
             playerManager.play(track: tracks[idx])
             playerManager.audioPlayer!.delegate = self
         }
-}
+    }
+    
     
     func removeTracksFromPlaylist(ids: Set<Track.ID>) -> Void {
         self.tracks = self.tracks.filter { !ids.contains($0.id) }
     }
+    
 }
 
 private extension URL {

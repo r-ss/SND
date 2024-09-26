@@ -11,6 +11,9 @@
 		D02EEECB29A8A6C7004F2C34 /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02EEECA29A8A6C7004F2C34 /* MainMenu.swift */; };
 		D0AD7E3829A4A8B400291C59 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AD7E3729A4A8B400291C59 /* Track.swift */; };
 		D0E47F7A29A6527F000896C7 /* PlayPauseButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E47F7929A6527F000896C7 /* PlayPauseButtonView.swift */; };
+		D0F8B48D29B2343E00ECCC8A /* SNDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8B48C29B2343E00ECCC8A /* SNDTests.swift */; };
+		D0F8B49329B2344600ECCC8A /* TestPlaylists.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8B48229B233BF00ECCC8A /* TestPlaylists.swift */; };
+		D0F8B49529B234B400ECCC8A /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8B49429B234B400ECCC8A /* Playlist.swift */; };
 		D0FBF32D29A6424F0046F736 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FBF32C29A6424F0046F736 /* Notification.swift */; };
 		D0FBF33029A643ED0046F736 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FBF32F29A643ED0046F736 /* ProgressBarView.swift */; };
 		D0FD969729A3D52700B7E5FA /* SNDApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD969629A3D52700B7E5FA /* SNDApp.swift */; };
@@ -20,13 +23,28 @@
 		D0FD96A629A3E70C00B7E5FA /* SNDPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD96A529A3E70C00B7E5FA /* SNDPlayer.swift */; };
 		D0FD96A829A3E71900B7E5FA /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD96A729A3E71900B7E5FA /* PlaylistView.swift */; };
 		D0FD96AA29A3EEC300B7E5FA /* SNDPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD96A929A3EEC300B7E5FA /* SNDPlaylist.swift */; };
+		D0FDFA792C9F3D0C00DD22B3 /* SNDAirPlayDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FDFA782C9F3D0900DD22B3 /* SNDAirPlayDeviceManager.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D0F8B48E29B2343E00ECCC8A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0FD968B29A3D52700B7E5FA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0FD969229A3D52700B7E5FA;
+			remoteInfo = SND;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		D02EEEC829A8A28F004F2C34 /* VolumeSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSliderView.swift; sourceTree = "<group>"; };
 		D02EEECA29A8A6C7004F2C34 /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		D0AD7E3729A4A8B400291C59 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		D0E47F7929A6527F000896C7 /* PlayPauseButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayPauseButtonView.swift; sourceTree = "<group>"; };
+		D0F8B48229B233BF00ECCC8A /* TestPlaylists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPlaylists.swift; sourceTree = "<group>"; };
+		D0F8B48A29B2343E00ECCC8A /* SNDTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNDTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F8B48C29B2343E00ECCC8A /* SNDTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDTests.swift; sourceTree = "<group>"; };
+		D0F8B49429B234B400ECCC8A /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		D0FBF32C29A6424F0046F736 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		D0FBF32F29A643ED0046F736 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
 		D0FD969329A3D52700B7E5FA /* SND.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SND.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,9 +56,17 @@
 		D0FD96A529A3E70C00B7E5FA /* SNDPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDPlayer.swift; sourceTree = "<group>"; };
 		D0FD96A729A3E71900B7E5FA /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
 		D0FD96A929A3EEC300B7E5FA /* SNDPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDPlaylist.swift; sourceTree = "<group>"; };
+		D0FDFA782C9F3D0900DD22B3 /* SNDAirPlayDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDAirPlayDeviceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D0F8B48729B2343E00ECCC8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0FD969029A3D52700B7E5FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,6 +80,7 @@
 		D096B05629A7CBDB007562A2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D0FDFA782C9F3D0900DD22B3 /* SNDAirPlayDeviceManager.swift */,
 				D0FD96A529A3E70C00B7E5FA /* SNDPlayer.swift */,
 				D0FD96A929A3EEC300B7E5FA /* SNDPlaylist.swift */,
 			);
@@ -64,8 +91,18 @@
 			isa = PBXGroup;
 			children = (
 				D0AD7E3729A4A8B400291C59 /* Track.swift */,
+				D0F8B49429B234B400ECCC8A /* Playlist.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D0F8B48B29B2343E00ECCC8A /* SNDTests */ = {
+			isa = PBXGroup;
+			children = (
+				D0F8B48C29B2343E00ECCC8A /* SNDTests.swift */,
+				D0F8B48229B233BF00ECCC8A /* TestPlaylists.swift */,
+			);
+			path = SNDTests;
 			sourceTree = "<group>";
 		};
 		D0FBF32B29A6422B0046F736 /* Misc */ = {
@@ -92,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				D0FD969529A3D52700B7E5FA /* SND */,
+				D0F8B48B29B2343E00ECCC8A /* SNDTests */,
 				D0FD969429A3D52700B7E5FA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				D0FD969329A3D52700B7E5FA /* SND.app */,
+				D0F8B48A29B2343E00ECCC8A /* SNDTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,6 +170,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D0F8B48929B2343E00ECCC8A /* SNDTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0F8B49029B2343E00ECCC8A /* Build configuration list for PBXNativeTarget "SNDTests" */;
+			buildPhases = (
+				D0F8B48629B2343E00ECCC8A /* Sources */,
+				D0F8B48729B2343E00ECCC8A /* Frameworks */,
+				D0F8B48829B2343E00ECCC8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0F8B48F29B2343E00ECCC8A /* PBXTargetDependency */,
+			);
+			name = SNDTests;
+			productName = SNDTests;
+			productReference = D0F8B48A29B2343E00ECCC8A /* SNDTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D0FD969229A3D52700B7E5FA /* SND */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0FD96A229A3D52800B7E5FA /* Build configuration list for PBXNativeTarget "SND" */;
@@ -158,6 +215,10 @@
 				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1420;
 				TargetAttributes = {
+					D0F8B48929B2343E00ECCC8A = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = D0FD969229A3D52700B7E5FA;
+					};
 					D0FD969229A3D52700B7E5FA = {
 						CreatedOnToolsVersion = 14.2;
 					};
@@ -177,11 +238,19 @@
 			projectRoot = "";
 			targets = (
 				D0FD969229A3D52700B7E5FA /* SND */,
+				D0F8B48929B2343E00ECCC8A /* SNDTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D0F8B48829B2343E00ECCC8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0FD969129A3D52700B7E5FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -194,6 +263,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D0F8B48629B2343E00ECCC8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0F8B48D29B2343E00ECCC8A /* SNDTests.swift in Sources */,
+				D0F8B49329B2344600ECCC8A /* TestPlaylists.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0FD968F29A3D52700B7E5FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -209,12 +287,56 @@
 				D02EEEC929A8A28F004F2C34 /* VolumeSliderView.swift in Sources */,
 				D0FBF33029A643ED0046F736 /* ProgressBarView.swift in Sources */,
 				D0AD7E3829A4A8B400291C59 /* Track.swift in Sources */,
+				D0F8B49529B234B400ECCC8A /* Playlist.swift in Sources */,
+				D0FDFA792C9F3D0C00DD22B3 /* SNDAirPlayDeviceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		D0F8B48F29B2343E00ECCC8A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0FD969229A3D52700B7E5FA /* SND */;
+			targetProxy = D0F8B48E29B2343E00ECCC8A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		D0F8B49129B2343E00ECCC8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R7Q2CDK95;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ress.SNDTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SND.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SND";
+			};
+			name = Debug;
+		};
+		D0F8B49229B2343E00ECCC8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7R7Q2CDK95;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ress.SNDTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SND.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SND";
+			};
+			name = Release;
+		};
 		D0FD96A029A3D52800B7E5FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -348,6 +470,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ress.sndplayer.SND;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -376,6 +499,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ress.sndplayer.SND;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -387,6 +511,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D0F8B49029B2343E00ECCC8A /* Build configuration list for PBXNativeTarget "SNDTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0F8B49129B2343E00ECCC8A /* Debug */,
+				D0F8B49229B2343E00ECCC8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0FD968E29A3D52700B7E5FA /* Build configuration list for PBXProject "SND" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
