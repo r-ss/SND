@@ -23,7 +23,6 @@
 		D0FD96A629A3E70C00B7E5FA /* SNDPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD96A529A3E70C00B7E5FA /* SNDPlayer.swift */; };
 		D0FD96A829A3E71900B7E5FA /* PlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD96A729A3E71900B7E5FA /* PlaylistView.swift */; };
 		D0FD96AA29A3EEC300B7E5FA /* SNDPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FD96A929A3EEC300B7E5FA /* SNDPlaylist.swift */; };
-		D0FDFA792C9F3D0C00DD22B3 /* SNDAirPlayDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FDFA782C9F3D0900DD22B3 /* SNDAirPlayDeviceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +55,6 @@
 		D0FD96A529A3E70C00B7E5FA /* SNDPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDPlayer.swift; sourceTree = "<group>"; };
 		D0FD96A729A3E71900B7E5FA /* PlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistView.swift; sourceTree = "<group>"; };
 		D0FD96A929A3EEC300B7E5FA /* SNDPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDPlaylist.swift; sourceTree = "<group>"; };
-		D0FDFA782C9F3D0900DD22B3 /* SNDAirPlayDeviceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNDAirPlayDeviceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +78,6 @@
 		D096B05629A7CBDB007562A2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D0FDFA782C9F3D0900DD22B3 /* SNDAirPlayDeviceManager.swift */,
 				D0FD96A529A3E70C00B7E5FA /* SNDPlayer.swift */,
 				D0FD96A929A3EEC300B7E5FA /* SNDPlaylist.swift */,
 			);
@@ -288,7 +285,6 @@
 				D0FBF33029A643ED0046F736 /* ProgressBarView.swift in Sources */,
 				D0AD7E3829A4A8B400291C59 /* Track.swift in Sources */,
 				D0F8B49529B234B400ECCC8A /* Playlist.swift in Sources */,
-				D0FDFA792C9F3D0C00DD22B3 /* SNDAirPlayDeviceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,8 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
             self.trackHasEndedEvent()
         }
         
+        loadPlaylist() // Load playlist when the app starts
+        
     }
     
     // AVAudioPlayerDelegate method, used to catch end of track and play next in a playlist
@@ -64,6 +66,7 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
             let track = Track(path: url, filename: url.lastPathComponent)
             DispatchQueue.main.async {
                 self.tracks.append(track)
+                self.savePlaylist() // Save playlist after adding a track
             }
         }
     }
@@ -94,6 +97,8 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
             }
             
         }
+        
+        
     }
     
     func playTrack(trackId: String) {
@@ -106,6 +111,41 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
     
     func removeTracksFromPlaylist(ids: Set<Track.ID>) -> Void {
         self.tracks = self.tracks.filter { !ids.contains($0.id) }
+        self.savePlaylist() // Save playlist after removing a track
+    }
+    
+    
+    private func getPlaylistFileURL() -> URL {
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        return documentsDirectory.appendingPathComponent("playlist.json")
+    }
+    
+    func savePlaylist() {
+        // Save playlist to disk
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(self.tracks)
+            let url = getPlaylistFileURL()
+            try data.write(to: url)
+            print("Playlist saved successfully.")
+        } catch {
+            print("Failed to save playlist:", error)
+        }
+    }
+    
+    func loadPlaylist() {
+        // Load playlist from disk
+        let decoder = JSONDecoder()
+        let url = getPlaylistFileURL()
+        
+        do {
+            let data = try Data(contentsOf: url)
+            let savedTracks = try decoder.decode([Track].self, from: data)
+            self.tracks = savedTracks
+            print("Playlist loaded successfully.")
+        } catch {
+            print("Failed to load playlist:", error)
+        }
     }
     
 }

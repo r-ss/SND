@@ -11,7 +11,7 @@ struct Metadata {
     var artist: String?
 }
 
-struct Track: Hashable, Identifiable {
+struct Track: Hashable, Identifiable, Codable {
     var id: String = UUID().uuidString
     var state: Bool = false
     //var num: Int?
@@ -22,5 +22,8 @@ struct Track: Hashable, Identifiable {
         self.state ? ">" : ""
     }
     
-    
+    // Define a CodingKeys enum if you want to customize how the fields are encoded/decoded
+    enum CodingKeys: String, CodingKey {
+        case id, state, path, filename
+    }
 }
