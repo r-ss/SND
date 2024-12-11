@@ -13,7 +13,7 @@ import AVFoundation
 struct ContentView: View {
     
     @StateObject var sndPlaylist = SNDPlaylist()
-    var sndPlayer = SNDPlayer.shared
+    @StateObject var sndPlayer = SNDPlayer.shared
     
     var body: some View {
         VStack {
@@ -31,14 +31,15 @@ struct ContentView: View {
                 VolumeSliderView(value: $volumeValue).frame(
                     maxWidth: 100, maxHeight: 12)
                 
-                Image(systemName: "airplayaudio").resizable().frame(width: 16, height: 16)
-                    .padding([.leading, .trailing], 5)
-                    .onTapGesture{
-                        print("list devices")
-                        sndPlayer.listAirplayDevices()
-                        
-                        
-                    }
+//                Image(systemName: "airplayaudio").resizable().frame(width: 16, height: 16)
+//                    .padding([.leading, .trailing], 5)
+//                    .onTapGesture{
+//                        print("list devices")
+//
+//                    }
+                
+                
+                
             }.padding(10)
             
             PlaylistView(sndPlaylist: sndPlaylist)
@@ -76,6 +77,18 @@ struct ContentView: View {
                 progressValue = 0
             }
         }
+        .onKeyPress(keys: [.space]) { _ in
+//                print("Spacebar jj")
+                sndPlayer.playPauseToggle()
+                return .handled
+            }
+        .alert(isPresented: $sndPlayer.showAlert) {
+                    Alert(
+                        title: Text("Playback Error"),
+                        message: Text(sndPlayer.alertMessage),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
         
     }
     

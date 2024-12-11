@@ -104,7 +104,10 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func playTrack(trackId: String) {
         if let idx: Int = self.tracks.firstIndex(where: {$0.id == trackId}) {
             playerManager.play(track: tracks[idx])
-            playerManager.audioPlayer!.delegate = self
+            
+            if playerManager.audioPlayer != nil && playerManager.audioPlayer!.isPlaying {
+                playerManager.audioPlayer!.delegate = self
+            }
         }
     }
     

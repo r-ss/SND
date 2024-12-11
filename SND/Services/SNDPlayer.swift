@@ -11,6 +11,9 @@ import AVFoundation
 class SNDPlayer: ObservableObject {
     static let shared = SNDPlayer()
     
+    @Published var showAlert = false
+    @Published var alertMessage = ""
+    
     var audioPlayer: AVAudioPlayer?
     
     var currentTrack: Track?
@@ -79,10 +82,20 @@ class SNDPlayer: ObservableObject {
             
             currentTrack = track
             Notification.fire(name: .playbackStarted)
-            //print("sound is playing")
-        } catch let error {
-            print("Sound Play Error -> \(error)")
-        }
+            print("Playing \(track.path)")
+            
+        } catch let error as NSError {
+                    if error.code == -54 {
+                        // Permission error
+                        alertMessage = "The app does not have permission to access the file outside it's sandbox. Please try file from your Documents or Downloads folder or allow full disk access."
+                        showAlert = true
+                    } else {
+                        // Handle other errors
+                        alertMessage = "An error occurred while trying to play the file: \(error.localizedDescription)"
+                        showAlert = true
+                    }
+                    print("Sound Play Error -> \(error)")
+                }
     }
     
     //    func stop(){
