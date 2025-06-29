@@ -138,8 +138,7 @@ class SNDPlayer: ObservableObject {
     }
     
     func listAirplayDevices() {
-        print("list ap d")
-        
+        print("List airplay devices")
     }
     
 }

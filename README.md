@@ -8,9 +8,6 @@ But now in Swift and SwiftUI for latest MacOS
 I am accepting pull requests!
 
 ## TODO:
-- Tabs
-- Track duration column in playlist
-- Saving plalist state between app launches
 - Change volume by dragging slider, not just clicking
 - Add some tests
 
