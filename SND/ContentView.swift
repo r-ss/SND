@@ -16,7 +16,7 @@ struct ContentView: View {
     @StateObject var sndPlayer = SNDPlayer.shared
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack(spacing: 5){
                 
                 PlayPauseButtonView(onClick: {
@@ -41,6 +41,12 @@ struct ContentView: View {
                 
                 
             }.padding(10)
+            
+            Divider()
+            
+            // Tab bar between controls and playlist
+            TabBarView()
+                .frame(height: 30)
             
             PlaylistView(sndPlaylist: sndPlaylist)
                 .frame(minWidth: 500, minHeight: 200, alignment: .topLeading)
@@ -75,6 +81,11 @@ struct ContentView: View {
             // Subscribing to track start event to immedeately set progress bar to zero
             NotificationCenter.simple(name: .playbackStarted){
                 progressValue = 0
+            }
+            
+            // Subscribing to new playlist menu event
+            NotificationCenter.simple(name: .createNewPlaylistRequested) {
+                PlaylistManager.shared.createNewPlaylist(makeActive: true)
             }
         }
         .onKeyPress(keys: [.space]) { _ in

@@ -12,6 +12,21 @@ struct Playlist: Hashable, Identifiable {
     var paths: [URL]
 }
 
+// PlaylistTab model for multiple playlists feature
+struct PlaylistTab: Identifiable, Codable, Hashable {
+    let id: String
+    var name: String
+    var tracks: [Track]
+    var isActive: Bool
+    
+    init(name: String, tracks: [Track] = [], isActive: Bool = false) {
+        self.id = UUID().uuidString
+        self.name = name
+        self.tracks = tracks
+        self.isActive = isActive
+    }
+}
+
 // MARK: Mocked Data
 extension Playlist {
     struct Mocked {

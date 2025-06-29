@@ -17,6 +17,14 @@ struct MainMenu: Commands {
            Button("Add to playlist...") {
                Notification.fire(name: .fileOpenDialogRequested)
            }
+           .keyboardShortcut("o", modifiers: .command)
+           
+           Divider()
+           
+           Button("New Playlist") {
+               NotificationCenter.default.post(name: .createNewPlaylistRequested, object: nil)
+           }
+           .keyboardShortcut("n", modifiers: [.command, .shift])
        }
        
   }

@@ -96,3 +96,147 @@ struct PlaylistView: View {
 //        PlaylistView(sndPlaylist: SNDPlaylist())
 //    }
 //}
+
+// TabBarView for multiple playlists
+struct TabBarView: View {
+    @ObservedObject var playlistManager = PlaylistManager.shared
+    @State private var renamingTabId: String? = nil
+    @State private var newName: String = ""
+    @State private var showingNewPlaylistButton = true
+    @State private var isHoveringPlusButton = false
+    
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 0) {
+                ForEach(playlistManager.playlists) { playlist in
+                    TabItemView(
+                        playlist: playlist,
+                        isActive: playlist.id == playlistManager.activePlaylistId,
+                        isRenaming: renamingTabId == playlist.id,
+                        newName: $newName,
+                        onTap: {
+                            playlistManager.switchToPlaylist(id: playlist.id)
+                        },
+                        onRename: {
+                            startRenaming(playlist: playlist)
+                        },
+                        onDelete: {
+                            playlistManager.deletePlaylist(id: playlist.id)
+                        },
+                        onRenameSubmit: {
+                            finishRenaming(playlistId: playlist.id)
+                        },
+                        onRenamingCancel: {
+                            renamingTabId = nil
+                            newName = ""
+                        }
+                    )
+                }
+                
+                // New playlist button with larger clickable area
+                Button(action: {
+                    playlistManager.createNewPlaylist(makeActive: true)
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(isHoveringPlusButton ? .accentColor : .secondary)
+                        if isHoveringPlusButton {
+                            Text("New Playlist")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(isHoveringPlusButton ? Color.gray.opacity(0.2) : Color.clear)
+                    )
+                }
+                .buttonStyle(PlainButtonStyle())
+                .onHover { hovering in
+                    isHoveringPlusButton = hovering
+                }
+            }
+            .padding(.horizontal, 5)
+        }
+        .frame(height: 30)
+        .background(Color(NSColor.controlBackgroundColor))
+    }
+    
+    private func startRenaming(playlist: PlaylistTab) {
+        renamingTabId = playlist.id
+        newName = playlist.name
+    }
+    
+    private func finishRenaming(playlistId: String) {
+        if !newName.isEmpty {
+            playlistManager.renamePlaylist(id: playlistId, newName: newName)
+        }
+        renamingTabId = nil
+        newName = ""
+    }
+}
+
+struct TabItemView: View {
+    let playlist: PlaylistTab
+    let isActive: Bool
+    let isRenaming: Bool
+    @Binding var newName: String
+    let onTap: () -> Void
+    let onRename: () -> Void
+    let onDelete: () -> Void
+    let onRenameSubmit: () -> Void
+    let onRenamingCancel: () -> Void
+    
+    @State private var isHovering = false
+    
+    var body: some View {
+        Group {
+            if isRenaming {
+                TextField("", text: $newName, onCommit: onRenameSubmit)
+                    .textFieldStyle(PlainTextFieldStyle())
+                    .frame(minWidth: 80, maxWidth: 150)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(isActive ? Color.accentColor.opacity(0.3) : Color.clear)
+                    .onExitCommand {
+                        onRenamingCancel()
+                    }
+            } else {
+                Text(playlist.name)
+                    .lineLimit(1)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 5)
+                    .background(isActive ? Color.accentColor.opacity(0.3) : (isHovering ? Color.gray.opacity(0.2) : Color.clear))
+                    .foregroundColor(isActive ? .primary : .secondary)
+                    .onTapGesture {
+                        onTap()
+                    }
+                    .onHover { hovering in
+                        isHovering = hovering
+                    }
+                    .contextMenu {
+                        Button("Rename") {
+                            onRename()
+                        }
+                        
+                        // Only show delete if there's more than one playlist
+                        if PlaylistManager.shared.playlists.count > 1 {
+                            Divider()
+                            Button("Delete") {
+                                onDelete()
+                            }
+                        }
+                    }
+            }
+        }
+        .overlay(
+            Rectangle()
+                .frame(height: 2)
+                .foregroundColor(isActive ? Color.accentColor : Color.clear),
+            alignment: .bottom
+        )
+    }
+}

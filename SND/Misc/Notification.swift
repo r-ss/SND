@@ -17,6 +17,7 @@ extension Notification.Name {
     static var trackHasEnded = Notification.Name("track.has.ended")
     
     static var fileOpenDialogRequested = Notification.Name("menu.file.open.dialog.requested")
+    static var createNewPlaylistRequested = Notification.Name("menu.playlist.new.requested")
 }
 
 // Method to fire notifications
