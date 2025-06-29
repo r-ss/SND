@@ -63,7 +63,9 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
     
     func addTrack(url: URL) {
         if allowed_extensions.contains(url.pathExtension.lowercased()) {
-            let track = Track(path: url, filename: url.lastPathComponent)
+            var track = Track(path: url, filename: url.lastPathComponent)
+            // Create security-scoped bookmark for persistent access
+            track.createBookmark()
             DispatchQueue.main.async {
                 self.tracks.append(track)
                 self.savePlaylist() // Save playlist after adding a track

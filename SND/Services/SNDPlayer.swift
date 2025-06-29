@@ -20,6 +20,9 @@ class SNDPlayer: ObservableObject {
     var ctPosition: Double?
     var ctDuration: Double?
     
+    // Keep track of security-scoped URL to stop accessing when done
+    private var currentSecurityScopedURL: URL?
+    
 
     
     var progress: Float {
@@ -74,15 +77,32 @@ class SNDPlayer: ObservableObject {
     //    }
     //
     func play(track: Track) {
+        // Stop accessing previous security-scoped resource if any
+        if let previousURL = currentSecurityScopedURL {
+            previousURL.stopAccessingSecurityScopedResource()
+            currentSecurityScopedURL = nil
+        }
+        
+        var urlToPlay = track.path
+        
+        // If track has bookmark data, resolve it
+        if let resolvedURL = track.resolveBookmark() {
+            // Start accessing the security-scoped resource
+            if resolvedURL.startAccessingSecurityScopedResource() {
+                urlToPlay = resolvedURL
+                currentSecurityScopedURL = resolvedURL
+            }
+        }
+        
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: track.path) //<- No `let`
+            audioPlayer = try AVAudioPlayer(contentsOf: urlToPlay)
             
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
             
             currentTrack = track
             Notification.fire(name: .playbackStarted)
-            print("Playing \(track.path)")
+            print("Playing \(urlToPlay)")
             
         } catch let error as NSError {
                     if error.code == -54 {
