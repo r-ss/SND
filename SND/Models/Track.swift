@@ -7,8 +7,29 @@
 
 import Foundation
 
-struct Metadata {
+struct Metadata: Codable, Hashable, Equatable {
     var artist: String?
+    var title: String?
+    var album: String?
+    var trackNumber: Int?
+    var duration: TimeInterval?
+    var year: String?
+    var genre: String?
+    
+    var displayTitle: String {
+        return title ?? ""
+    }
+    
+    var displayArtist: String {
+        return artist ?? ""
+    }
+    
+    var formattedDuration: String {
+        guard let duration = duration else { return "" }
+        let minutes = Int(duration) / 60
+        let seconds = Int(duration) % 60
+        return String(format: "%d:%02d", minutes, seconds)
+    }
 }
 
 struct Track: Hashable, Identifiable, Codable {
@@ -18,14 +39,22 @@ struct Track: Hashable, Identifiable, Codable {
     var path: URL
     var filename: String
     var bookmarkData: Data?
+    var metadata: Metadata = Metadata()
     
     var stateAsString: String {
         self.state ? ">" : ""
     }
     
+    var displayName: String {
+        if let title = metadata.title, !title.isEmpty {
+            return title
+        }
+        return filename
+    }
+    
     // Define a CodingKeys enum if you want to customize how the fields are encoded/decoded
     enum CodingKeys: String, CodingKey {
-        case id, state, path, filename, bookmarkData
+        case id, state, path, filename, bookmarkData, metadata
     }
     
     // Create bookmark data for the track's URL

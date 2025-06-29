@@ -17,7 +17,7 @@ struct PlaylistView: View {
     
     @ObservedObject var sndPlaylist: SNDPlaylist
     
-    @State private var sortOrder = [KeyPathComparator(\Track.filename)]
+    @State private var sortOrder = [KeyPathComparator(\Track.displayName)]
     @State private var selection = Set<Track.ID>()
     var body: some View {
         if sndPlaylist.tracks.count == 0 {
@@ -60,17 +60,28 @@ struct PlaylistView: View {
     private var playlistTable: some View {
         Table(selection: $selection, sortOrder: $sortOrder) {
             //        Table(selection: $selection) {
-            //            TableColumn("Num", value: \.num)
-            //                .width(min: 50, max: 100)
             TableColumn("State", value: \.stateAsString)
                 .width(min: 20, max: 40)
-            //            TableColumn("Id", value: \.id)
-            //                .width(min: 50, max: 100)
-            TableColumn("Name", value: \.filename)
-            //            TableColumn("Path", value: \.path) { track in
-            //                Text(String(contentsOf:track.path))
-            //            }
-                .width(min: 50)
+            
+            TableColumn("#") { track in
+                if let trackNum = track.metadata.trackNumber {
+                    Text("\(trackNum)")
+                } else {
+                    Text("")
+                }
+            }
+            .width(min: 30, max: 50)
+            
+            TableColumn("Artist", value: \.metadata.displayArtist)
+                .width(min: 100, ideal: 150)
+            
+            TableColumn("Title") { track in
+                Text(track.displayName)
+            }
+            .width(min: 150, ideal: 300)
+            
+            TableColumn("Duration", value: \.metadata.formattedDuration)
+                .width(min: 50, max: 80)
         } rows: {
             ForEach(sndPlaylist.tracks, content: TableRow.init)
         }
