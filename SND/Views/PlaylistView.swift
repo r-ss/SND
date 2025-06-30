@@ -63,22 +63,10 @@ struct PlaylistView: View {
             TableColumn("State", value: \.stateAsString)
                 .width(min: 20, max: 40)
             
-            TableColumn("#") { track in
-                if let trackNum = track.metadata.trackNumber {
-                    Text("\(trackNum)")
-                } else {
-                    Text("")
-                }
-            }
-            .width(min: 30, max: 50)
-            
-            TableColumn("Artist", value: \.metadata.displayArtist)
-                .width(min: 100, ideal: 150)
-            
-            TableColumn("Title") { track in
+            TableColumn("Filename") { track in
                 Text(track.displayName)
             }
-            .width(min: 150, ideal: 300)
+            .width(min: 250, ideal: 400)
             
             TableColumn("Duration", value: \.metadata.formattedDuration)
                 .width(min: 50, max: 80)

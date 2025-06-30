@@ -8,21 +8,7 @@
 import Foundation
 
 struct Metadata: Codable, Hashable, Equatable {
-    var artist: String?
-    var title: String?
-    var album: String?
-    var trackNumber: Int?
     var duration: TimeInterval?
-    var year: String?
-    var genre: String?
-    
-    var displayTitle: String {
-        return title ?? ""
-    }
-    
-    var displayArtist: String {
-        return artist ?? ""
-    }
     
     var formattedDuration: String {
         guard let duration = duration else { return "" }
@@ -46,9 +32,6 @@ struct Track: Hashable, Identifiable, Codable {
     }
     
     var displayName: String {
-        if let title = metadata.title, !title.isEmpty {
-            return title
-        }
         return filename
     }
     

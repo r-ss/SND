@@ -261,49 +261,11 @@ class SNDPlaylist: NSObject, ObservableObject, AVAudioPlayerDelegate {
         
         Task {
             do {
-                // Load common metadata
-                let commonMetadata = try await asset.load(.commonMetadata)
-                for item in commonMetadata {
-                    guard let key = item.commonKey?.rawValue else { continue }
-                    let value = try? await item.load(.value)
-                    
-                    switch key {
-                    case AVMetadataKey.commonKeyTitle.rawValue:
-                        metadata.title = value as? String
-                    case AVMetadataKey.commonKeyArtist.rawValue:
-                        metadata.artist = value as? String
-                    case AVMetadataKey.commonKeyAlbumName.rawValue:
-                        metadata.album = value as? String
-                    case AVMetadataKey.commonKeyCreationDate.rawValue:
-                        metadata.year = value as? String
-                    default:
-                        break
-                    }
-                }
-                
-                // Extract duration
+                // Extract duration only
                 let duration = try await asset.load(.duration)
                 metadata.duration = CMTimeGetSeconds(duration)
-                
-                // Try to extract track number from ID3 metadata
-                let allMetadata = try await asset.load(.metadata)
-                let id3Metadata = AVMetadataItem.metadataItems(from: allMetadata, withKey: AVMetadataKey.id3MetadataKeyTrackNumber, keySpace: .id3)
-                if let trackItem = id3Metadata.first {
-                    let trackValue = try? await trackItem.load(.value)
-                    if let trackData = trackValue as? Data, let trackString = String(data: trackData, encoding: .utf8) {
-                        // Track number might be in format "1/12" (track 1 of 12)
-                        if let trackNum = Int(trackString.split(separator: "/").first ?? "") {
-                            metadata.trackNumber = trackNum
-                        }
-                    } else if let trackItem = id3Metadata.first {
-                        let numberValue = try? await trackItem.load(.numberValue)
-                        if let trackNum = numberValue {
-                            metadata.trackNumber = trackNum.intValue
-                        }
-                    }
-                }
             } catch {
-                print("Error loading metadata for \(url.lastPathComponent): \(error)")
+                print("Error loading duration for \(url.lastPathComponent): \(error)")
             }
             semaphore.signal()
         }
