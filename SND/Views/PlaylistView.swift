@@ -217,6 +217,11 @@ struct TabItemView: View {
                         isHovering = hovering
                     }
                     .contextMenu {
+                        Text("Total: \(playlist.formattedTotalDuration)")
+                            .font(.caption)
+                        
+                        Divider()
+                        
                         Button("Rename") {
                             onRename()
                         }
