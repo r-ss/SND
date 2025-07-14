@@ -77,11 +77,38 @@ struct PlaylistView: View {
         
         .padding(0)
         .contextMenu(forSelectionType: Track.ID.self) { items in
+            Button("Delete") {
+                sndPlaylist.removeTracksFromPlaylist(ids: items)
+            }
+            .keyboardShortcut(.delete, modifiers: [])
+            
+            Divider()
+            
+            Button("Show in Finder") {
+                showInFinder(trackIds: items)
+            }
         } primaryAction: { items in
             // This is executed when the row is double clicked
             sndPlaylist.playTrack(trackId: Array(items)[0])
         }
         
+    }
+    
+    private func showInFinder(trackIds: Set<Track.ID>) {
+        let tracks = sndPlaylist.tracks.filter { trackIds.contains($0.id) }
+        
+        for track in tracks {
+            // Try to resolve bookmark first for sandboxed access
+            if let accessibleURL = track.resolveBookmark() {
+                NSWorkspace.shared.selectFile(accessibleURL.path, inFileViewerRootedAtPath: "")
+            } else {
+                // Fallback to original path if bookmark resolution fails
+                NSWorkspace.shared.selectFile(track.path.path, inFileViewerRootedAtPath: "")
+            }
+            
+            // For multiple selections, only show the first file to avoid opening too many Finder windows
+            break
+        }
     }
     
     private func addMockTracks() {
